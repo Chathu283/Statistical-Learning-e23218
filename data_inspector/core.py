@@ -86,6 +86,21 @@ class DataInspector:
         self.df.drop_duplicates(inplace=True)
         print(f"Removed {initial_rows - len(self.df)} duplicate rows.")
 
+    def delete_columns(self):
+        cols_to_delete = input("Enter column names to delete (comma-separated): ")
+        col_list = [c.strip() for c in cols_to_delete.split(',')]
+        self.df.drop(columns=col_list, inplace=True, errors='ignore')
+        print(f"✅ Deleted columns: {col_list}")
+
+    def data_summary(self):
+        """
+        Prints a summary of the dataset including row/column counts,
+        numeric vs categorical splits, and a 20-row preview.
+        """
+        if self.df is None:
+            print("⚠️ No data loaded! Please run upload_data() first.")
+            return
+        
     def handle_outliers(self, column, action='flag'):
         """IQR-based outlier detection."""
         if column not in self.df.select_dtypes(include=[np.number]).columns:
