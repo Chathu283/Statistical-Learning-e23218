@@ -14,11 +14,12 @@ class DataInspector:
     
     def __init__(self):
         self.df: pd.DataFrame = None
-
+  
     # ==========================================
     # 1. Data Ingestion & Sanitization
     # ==========================================
-    def upload_data(self) -> None:
+    @classmethod
+    def upload_data(cls) -> None:
         """Triggers native Google Colab file upload portal and sanitizes incoming CSV files."""
         try:
             from google.colab import files
