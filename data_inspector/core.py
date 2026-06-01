@@ -87,10 +87,17 @@ class DataInspector:
         print(f"Removed {initial_rows - len(self.df)} duplicate rows.")
 
     def delete_columns(self):
-        cols_to_delete = input("Enter column names to delete (comma-separated): ")
-        col_list = [c.strip() for c in cols_to_delete.split(',')]
-        self.df.drop(columns=col_list, inplace=True, errors='ignore')
-        print(f"✅ Deleted columns: {col_list}")
+        """Prunes targeted columns using interactive user input."""
+        if self.df is None: 
+            print("⚠️ No data loaded!")
+            return
+        
+        # This prompts the user interactively in the Colab terminal
+        cols_str = input("Enter column names to delete (comma-separated): ")
+    
+        cols = [col.strip() for col in cols_str.split(',')]
+        self.df.drop(columns=cols, inplace=True, errors='ignore')
+        print(f"✅ Successfully dropped columns: {cols}")
 
     def data_summary(self):
         """
